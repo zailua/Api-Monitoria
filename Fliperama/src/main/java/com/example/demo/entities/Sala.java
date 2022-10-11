@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "game_room")
+@Table(name = "room")
 public class Sala {
 	
 	@Id
@@ -28,7 +28,7 @@ public class Sala {
 	@Column(name = "game_gen")
 	private String gameGen;
 	
-	@OneToMany(mappedBy = "jogo")
+	@OneToMany(mappedBy = "sala")
 	private List<Jogo> jogos = new ArrayList<Jogo>();
 	
 	
@@ -39,6 +39,20 @@ public class Sala {
 	
 	
 	
+	public List<Jogo> getJogos() {
+		return jogos;
+	}
+
+
+
+
+	public void setJogos(List<Jogo> jogos) {
+		this.jogos = jogos;
+	}
+
+
+
+
 	public Sala() {
 		super();
 		
