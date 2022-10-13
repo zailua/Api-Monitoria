@@ -2,13 +2,15 @@ package com.example.demo.entities;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -32,9 +34,10 @@ public class Jogo {
 	private float valor;
 	
 	
-	@ManyToOne
-	@JoinColumn(name = "Game_id")
-	private Sala sala;
+
+	
+	@OneToMany(mappedBy = "jogo")
+	private List<Sala> salas = new ArrayList<Sala>();
 	
 	
 	
@@ -43,15 +46,15 @@ public class Jogo {
 
 
 
-	public Sala getSala() {
-		return sala;
+	
+	public List<Sala> getSalas() {
+		return salas;
 	}
 
-	public void setSala(Sala sala) {
-		this.sala = sala;
+	public void setSalas(List<Sala> salas) {
+		this.salas = salas;
 	}
 
-	
 	public Jogo() {
 		
 		

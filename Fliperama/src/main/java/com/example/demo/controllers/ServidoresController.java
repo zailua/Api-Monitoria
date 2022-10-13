@@ -19,49 +19,55 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.ResourceNotFoundException;
 import com.example.demo.entities.Jogo;
 import com.example.demo.entities.Sala;
+import com.example.demo.entities.Servidor;
 import com.example.demo.repositorys.JogoRepository;
 import com.example.demo.repositorys.SalaRepository;
-
+import com.example.demo.repositorys.ServidorRepository;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/salacontroller")
-public class SalaController {
-	
+@RequestMapping("/api/servidorcontroller")
+public class ServidoresController {
+
+
 	@Autowired
 	private SalaRepository salaRepository;
 	
-	@Autowired 
+	@Autowired
+	private ServidorRepository servidorRepository;
+	
+	@Autowired
 	private JogoRepository jogoRepository;
 	
 	
 	//GET all
-	@GetMapping("/salas")
-	public List<Sala> getAllJogos(){
+	@GetMapping("/servidores")
+	public List<Sala> getAllServidores(){
 		return salaRepository.findAll();
 	}
 	
 	
 	//GET by Id
-	@GetMapping("/salas/{id}")
+	@GetMapping("/servidores/{id}")
 	public ResponseEntity<Sala> getJogoById(@PathVariable Long id){
 		Sala sala = salaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Sala inexistente com id "));
 				return ResponseEntity.ok(sala);
 	}
 	
 	//CREATE
-	@PostMapping("/salas")
+	@PostMapping("/servidores")
 	public Sala createJogo(@RequestBody Sala sala) {
 		return salaRepository.save(sala);
 	}
 	
 	
 	//UPDATE
-	@PutMapping("/salas/{id}")
-	public ResponseEntity<Sala> updateJogo(@PathVariable Long id, @RequestBody Sala jogosDetails){
+	@PutMapping("/servidores/{id}")
+	public ResponseEntity<Sala> updateJogo(@PathVariable Long id, @RequestBody Sala servidoresDetails){
 		
 		Sala sala = salaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Sala inexistente com id "));
-		Jogo jogo = jogoRepository.findById(jogosDetails.getJogo().getId()).get();
+		Servidor servidor = servidorRepository.findById(servidoresDetails.getServidores().getId()).get();
+		Jogo jogo = servidorRepository.findById(servidoresDetails.getJogo().getId()).get();
 		
 		sala.setNome(sala.getNome());
 		sala.setGameGen(sala.getGameGen());
@@ -74,7 +80,7 @@ public class SalaController {
 	
 	
 	//DELETE
-	@DeleteMapping("/salas/{id}")
+	@DeleteMapping("/servidores/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteJogo (@PathVariable Long id) {
 		Sala sala = salaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("sala inexistente com id "));
 		
@@ -85,4 +91,8 @@ public class SalaController {
 		
 		
 	}
+	
+	
+	
+	
 }

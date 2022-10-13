@@ -1,7 +1,7 @@
 package com.example.demo.entities;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -28,26 +30,44 @@ public class Sala {
 	@Column(name = "game_gen")
 	private String gameGen;
 	
-	@OneToMany(mappedBy = "sala")
-	private List<Jogo> jogos = new ArrayList<Jogo>();
 	
 	
+	@ManyToOne
+	@JoinColumn(name = "game_fk")
+	private Jogo jogo;
 	
 	
+	@ManyToMany(mappedBy = "salas")
+	List<Servidor> servidores;
 	
 	
-	
-	
-	
-	public List<Jogo> getJogos() {
-		return jogos;
+
+
+
+
+	public List<Servidor> getServidores() {
+		return servidores;
 	}
 
 
 
 
-	public void setJogos(List<Jogo> jogos) {
-		this.jogos = jogos;
+	public void setServidores(List<Servidor> servidores) {
+		this.servidores = servidores;
+	}
+
+
+
+
+	public Jogo getJogo() {
+		return jogo;
+	}
+
+
+
+
+	public void setJogo(Jogo jogo) {
+		this.jogo = jogo;
 	}
 
 

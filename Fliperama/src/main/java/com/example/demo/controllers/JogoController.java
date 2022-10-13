@@ -17,16 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.ResourceNotFoundException;
 import com.example.demo.entities.Jogo;
-import com.example.demo.entities.Sala;
 import com.example.demo.repositorys.JogoRepository;
-import com.example.demo.repositorys.SalaRepository;
+
 
 
 
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/jogocontroller")
 public class JogoController {
 
 	
@@ -34,8 +33,6 @@ public class JogoController {
 	@Autowired
 	private JogoRepository jogoRepository;
 	
-	@Autowired
-	private SalaRepository salaRepository;
 	
 	
 	//GET all
@@ -64,11 +61,9 @@ public class JogoController {
 	public ResponseEntity<Jogo> updateJogo(@PathVariable Long id, @RequestBody Jogo jogosDetails){
 		
 		Jogo jogo = jogoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Jogo inexistente com id "));
-		Sala sala = salaRepository.findById(jogosDetails.getSala().getId()).get();
 		
 		jogo.setNome(jogo.getNome());
 		jogo.setValor(jogo.getValor());
-		jogo.setSala(sala);
 		
 		Jogo newJogo = jogoRepository.save(jogo);
 		
